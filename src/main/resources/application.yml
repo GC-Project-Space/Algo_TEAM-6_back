@@ -1,0 +1,10 @@
+server:
+  port: ${APPLICATION_PORT:8080}
+
+spring:
+  application:
+    name: Streaming Service
+
+  profiles:
+    group:
+      "local": "local, datasource, docs" # 로컬 환경 프로파일
