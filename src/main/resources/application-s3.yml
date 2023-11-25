@@ -1,0 +1,17 @@
+# This file is used when the S3 profile is active
+spring:
+  config:
+    activate:
+      on-profile: "S3"
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: ${AWS_REGION}
+    s3:
+      bucket: ${AWS_S3_BUCKET}
+    credentials:
+      accessKey: ${AWS_S3_ACCESS_KEY}
+      secretKey: ${AWS_S3_SECRET_KEY}

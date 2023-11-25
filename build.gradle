@@ -41,6 +41,9 @@ dependencies {
 
     // documetation
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.15'
+
+    // aws
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('bootBuildImage') {
