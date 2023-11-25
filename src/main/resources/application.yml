@@ -7,4 +7,4 @@ spring:
 
   profiles:
     group:
-      "local": "local, datasource, docs" # 로컬 환경 프로파일
+      "local": "local, datasource, docs, S3" # 로컬 환경 프로파일
