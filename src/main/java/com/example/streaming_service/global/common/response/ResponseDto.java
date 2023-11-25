@@ -1,6 +1,7 @@
 package com.example.streaming_service.global.common.response;
 
 import com.example.streaming_service.global.common.code.BaseCode;
+import com.example.streaming_service.global.common.code.status.SuccessStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -25,7 +26,7 @@ public class ResponseDto<T> {
 
     // 성공한 경우
     public static <T> ResponseDto<T> onSuccess(T result) {
-        return new ResponseDto<>(true, SuccesStatus._OK.getCode(), SuccesStatus._OK.getMessage(), result);
+        return new ResponseDto<>(true, SuccessStatus._OK.getCode(), SuccessStatus._OK.getMessage(), result);
     }
     public static <T> ResponseDto<T> of(BaseCode code, T result){
         return new ResponseDto<>(true, code.getReasonHttpStatus().getCode() , code.getReasonHttpStatus().getMessage(), result);
