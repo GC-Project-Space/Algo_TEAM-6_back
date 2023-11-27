@@ -2,9 +2,6 @@ server:
   port: ${APPLICATION_PORT:8080}
 
 spring:
-  config:
-    import: application-s3.yml
-
   application:
     name: Streaming Service
 
