@@ -8,3 +8,6 @@ spring:
   profiles:
     group:
       "local": "local, datasource, docs, S3" # 로컬 환경 프로파일
+      "dev": "dev, datasource, docs, S3" # 개발 환경 프로파일
+
+    active: local # 로컬 환경 프로파일을 기본으로 설정
