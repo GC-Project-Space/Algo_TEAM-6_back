@@ -8,7 +8,7 @@ on:
 
 env:
   PROJECT_NAME: streaming-service
-  BUCKET_NAME: ${{ secrets.AWS_BUCKET }}
+  BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET }}
   CODE_DEPLOY_APP_NAME: ${{ secrets.AWS_CODE_DEPLOY_APP }}
   DEPLOYMENT_GROUP_NAME: ${{ secrets.AWS_CODE_DEPLOY_GROUP }}
   AWS_REGION: ${{ secrets.AWS_REGION }}
