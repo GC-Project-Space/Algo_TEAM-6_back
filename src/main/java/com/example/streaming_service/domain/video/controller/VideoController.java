@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "Video", description = "Video 관련 API")
 @Slf4j
 @RequiredArgsConstructor
@@ -23,5 +25,18 @@ public class VideoController {
 
     private final VideoService videoService;
 
+    @GetMapping("/Video/{id}")
+    public ResponseDto<String> getVideoUrlById(Long id){
+        String url = videoService.getVideoUrlById(id);
+
+        return ResponseDto.onSuccess(url);
+    }
+
+    @GetMapping("/getActiveVideoUrlInOrder")
+    public ResponseDto<List<String>>getActiveVideoUrlInOrder(){
+        List<String> activeVideoUrls = videoService.getActiveVideoUrlInOrder();
+
+        return ResponseDto.onSuccess(activeVideoUrls);
+    }
 
 }
