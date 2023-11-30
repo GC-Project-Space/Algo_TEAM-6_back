@@ -47,9 +47,11 @@
             let start = new Date();
             // 1. Spring Boot 서버로 멀티파트 업로드 시작 요청합니다.
             let res = await axios.post(`${url}/s3/initiate-upload`, { fileName: fileName });
-            const uploadId = res.data.uploadId;
-            const newFilename = res.data.fileName; // 서버에서 생성한 새로운 파일명
+            const uploadId = res.data.result.uploadId;
+            const newFilename = res.data.result.newFileName; // 서버에서 생성한 새로운 파일명
             console.log(res);
+            console.log(`uploadId: ${uploadId}`);
+            console.log(`newFilename: ${newFilename}`);
 
             // 세션 스토리지에 업로드 아이디와 파일 이름을 저장합니다.
             sessionStorage.setItem('uploadId', uploadId);

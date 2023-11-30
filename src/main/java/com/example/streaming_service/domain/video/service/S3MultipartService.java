@@ -34,7 +34,7 @@ public class S3MultipartService {
     private final S3Presigner s3Presigner;
     private final AmazonS3Client amazonS3Client;
 
-    public String initiateUpload(
+    public S3Response.S3UploadDto initiateUpload(
             String originalFileName, String targetBucket, String targetObjectDir
     ) {
         log.info("Bucket: {}, Object: {}", targetBucket, targetObjectDir);
@@ -54,7 +54,7 @@ public class S3MultipartService {
         // S3 Multipart Upload를 위해 고유 식별 ID를 포함된 답 반환
         CreateMultipartUploadResponse response = s3Client.createMultipartUpload(createMultipartUploadRequest);
 
-        return response.uploadId();
+        return S3ResponseConverter.toS3UploadDto(response.uploadId(), newFileName);
     }
 
     public String getUploadSignedUrl(

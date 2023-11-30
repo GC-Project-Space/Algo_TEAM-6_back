@@ -37,11 +37,12 @@ public class S3MultipartController {
     public ResponseDto<S3Response.S3UploadDto> initiateUpload(
         @RequestBody S3Request.S3UploadInitiateDto request
     ) {
-        String uploadId = s3MultipartService.initiateUpload(
-            request.getFileName(), videoBucket, S3Config.videoFolder
-        );
-
-        return ResponseDto.onSuccess(S3ResponseConverter.toS3UploadDto(uploadId, request.getFileName()));
+        return ResponseDto.onSuccess(
+                s3MultipartService.initiateUpload(
+                        request.getFileName(),
+                        videoBucket,
+                        S3Config.videoFolder
+        ));
     }
 
     /**
