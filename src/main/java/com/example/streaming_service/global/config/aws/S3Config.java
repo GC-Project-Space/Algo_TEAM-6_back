@@ -1,5 +1,9 @@
 package com.example.streaming_service.global.config.aws;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,12 +27,12 @@ public class S3Config {
     public static final String videoFolder = "video";
 
     @Bean
-    public AwsCredentials awsCredentials() {
+    public AwsCredentials basicAWSCredentials() {
         return AwsBasicCredentials.create(accessKey, secretKey);
     }
 
     @Bean
-    public S3Client amazonS3Client(AwsCredentials awsCredentials) {
+    public S3Client s3Client(AwsCredentials awsCredentials) {
         return S3Client.builder()
                 .region(Region.of(region))
                 .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
@@ -40,6 +44,15 @@ public class S3Config {
         return S3Presigner.builder()
                 .region(Region.of(region))
                 .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
+                .build();
+    }
+
+    @Bean
+    public AmazonS3Client amazonS3Client() {
+        BasicAWSCredentials awsCredentials= new BasicAWSCredentials(accessKey, secretKey);
+        return (AmazonS3Client) AmazonS3ClientBuilder.standard()
+                .withRegion(region)
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
                 .build();
     }
 }
