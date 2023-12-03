@@ -1,18 +1,17 @@
 package com.example.streaming_service.domain.video.controller;
 
-import com.example.streaming_service.domain.video.converter.VideoConverter;
+import com.example.streaming_service.domain.video.converter.VideoResponseConverter;
 import com.example.streaming_service.domain.video.domain.Video;
-import com.example.streaming_service.domain.video.dto.VideoRequest;
 import com.example.streaming_service.domain.video.dto.VideoResponse;
 import com.example.streaming_service.domain.video.service.VideoService;
 import com.example.streaming_service.global.common.response.ResponseDto;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -25,18 +24,20 @@ public class VideoController {
 
     private final VideoService videoService;
 
-    @GetMapping("/Video/{id}")
-    public ResponseDto<String> getVideoUrlById(Long id){
-        String url = videoService.getVideoUrlById(id);
+    @GetMapping("/{id}")
+    public ResponseDto<VideoResponse.VideoDto> getVideoUrlById(
+            @RequestParam("id") Long id
+    ){
+        Video video = videoService.getVideoById(id);
 
-        return ResponseDto.onSuccess(url);
+        return ResponseDto.onSuccess(VideoResponseConverter.toVideoDto(video));
     }
 
-    @GetMapping("/getActiveVideoUrlInOrder")
-    public ResponseDto<List<String>>getActiveVideoUrlInOrder(){
-        List<String> activeVideoUrls = videoService.getActiveVideoUrlInOrder();
+    @GetMapping("/List")
+    public ResponseDto<List<VideoResponse.VideoDto>>getActiveVideoUrlInOrder(){
+        List<Video> activeVideoUrls = videoService.getActiveVideoUrlInOrder();
 
-        return ResponseDto.onSuccess(activeVideoUrls);
+        return ResponseDto.onSuccess(VideoResponseConverter.toVideoDtoList(activeVideoUrls));
     }
 
 }

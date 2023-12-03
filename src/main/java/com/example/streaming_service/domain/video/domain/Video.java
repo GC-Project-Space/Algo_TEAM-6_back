@@ -26,14 +26,8 @@ public class Video extends BaseEntity {
     @Column(name = "videoUrl", nullable = false)
     private String videoUrl;
 
-    @Column(name = "thumbnailUrl", nullable = false)
-    private String thumbnailUrl;
-
     @Column(name = "size", nullable = false)
     private String size;
-
-    @Column(name = "duration", nullable = false)
-    private String duration;
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)

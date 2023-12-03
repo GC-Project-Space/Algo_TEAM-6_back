@@ -4,6 +4,8 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.example.streaming_service.domain.video.converter.S3ResponseConverter;
+import com.example.streaming_service.domain.video.converter.VideoConverter;
+import com.example.streaming_service.domain.video.domain.Video;
 import com.example.streaming_service.domain.video.dto.S3Request;
 import com.example.streaming_service.domain.video.dto.S3Response;
 import com.example.streaming_service.domain.video.repository.VideoRepository;
@@ -28,7 +30,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class S3MultipartService {
-    private final VideoRepository videoRepository;
+
+    private final VideoService videoService;
 
     private final S3Client s3Client;
     private final S3Presigner s3Presigner;
@@ -113,8 +116,9 @@ public class S3MultipartService {
         String objectKey = completeMultipartUploadResponse.key();
         String url = amazonS3Client.getUrl(targetBuket, objectKey).toString();
         String bucket = completeMultipartUploadResponse.bucket();
-
         Long fileSize = getFileSizeFromS3Url(bucket, objectKey);
+
+        videoService.saveVideo(fileName, url, fileSize.toString());
 
         return S3ResponseConverter.toS3UploadResultDto(fileName, url, fileSize);
     }
